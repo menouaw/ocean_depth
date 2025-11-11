@@ -22,6 +22,53 @@ void allocate_map(Map* map)
     }
 }
 
+void populate_map(Map * map)
+{
+    /*
+     * 1. parcourir chaque salle, de chaque niveau
+     * 2. placer, par niveau:
+     *      - 50% de monstres           (M)
+     *      - 25% de trésors            (T)
+     *      - 15% d'évènements spéciaux (E)
+     *      - 10% de salles vides       (V)
+     *      + si dernier niveau: boss   (B)
+     */
+
+    // FIX: il y aura un souci si on change l'ordre de proba des salles
+
+    int random;
+
+    for (int i = 0; i < map->nb_level; ++i)
+    {
+        for (int j = 0; j < map->room_by_level; ++j)
+        {
+            random = rand() % (100);
+            if (random > 100-PROB_EMPTY_ROOM)
+            {
+                  map->map[i][j] = 'V';
+            } else if (random > 100-PROB_EVENT-PROB_EMPTY_ROOM)
+            {
+                map->map[i][j] = 'E';
+            } else if (random > 100-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
+            {
+                map->map[i][j] = 'T';
+            } else if (random > 100-PROB_MONSTER-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
+            {
+                map->map[i][j] = 'M';
+            } else
+            {
+                map->map[i][j] = 'V'; // salle vide en cas d'erreur
+            }
+
+            // boss légendaire en cas d'atteinte du dernier niveau
+            if (i == map->nb_level-1)
+            {
+                map->map[i][j] = 'B';
+            }
+        }
+    }
+}
+
 void print_map(Map* map)
 {
     for (int i = 0; i < map->nb_level; ++i)

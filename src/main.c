@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "../include/DataStructures/ascii.h"
 #include "../include/DataStructures/bases.h"
@@ -21,6 +22,8 @@
 
 int main(int argc, char * argv[])
 {
+    srand(time(NULL));
+
     int choice;
     int score;
 
@@ -39,15 +42,17 @@ int main(int argc, char * argv[])
         // ascii_new_game();
         printf("----------\n"
                "Nouvelle partie!\n");
-        // initialisation des personnages
+        // initialisation des personnages (et de leurs caractéristiques)
         Player * player = malloc(sizeof(Player));
         player->map.nb_level = NB_LEVEL;
         player->map.room_by_level = NB_ROOM_BY_LEVEL;
 
-        // TODO: allouer les monstres
-
-        // TODO: allouer la carte
+        // allouer la carte
         allocate_map(&(player->map));
+
+        // TODO: peupler la carte
+        populate_map(&(player->map));
+
         print_map(&(player->map));
         // score = launch_game();
         score = 0;
