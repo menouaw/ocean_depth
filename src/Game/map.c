@@ -36,23 +36,23 @@ void populate_map(Map * map)
 
     // FIX: il y aura un souci si on change l'ordre de proba des salles
 
-    int random;
+    int rand_value;
 
     for (int i = 0; i < map->nb_level; ++i)
     {
         for (int j = 0; j < map->room_by_level; ++j)
         {
-            random = rand() % (100);
-            if (random > 100-PROB_EMPTY_ROOM)
+            rand_value = rand() % 100;
+            if (rand_value > 100-PROB_EMPTY_ROOM)
             {
                 map->map[i][j] = 'V';
-            } else if (random > 100-PROB_EVENT-PROB_EMPTY_ROOM)
+            } else if (rand_value > 100-PROB_EVENT-PROB_EMPTY_ROOM)
             {
                 map->map[i][j] = 'E';
-            } else if (random > 100-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
+            } else if (rand_value > 100-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
             {
                 map->map[i][j] = 'T';
-            } else if (random > 100-PROB_MONSTER-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
+            } else if (rand_value > 100-PROB_MONSTER-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
             {
                 map->map[i][j] = 'M';
             } else

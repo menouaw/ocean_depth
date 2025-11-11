@@ -11,4 +11,6 @@ int launch_game(Player * player);
 
 char move_to_room(Player * player, int level, int room);
 
+int consume_room(Player * player);
+
 #endif //CODE_ACTIONS_H

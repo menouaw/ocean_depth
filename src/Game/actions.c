@@ -31,6 +31,8 @@ int launch_game(Player * player)
         move_to_room(player, player->position.level+1, choice);
         // printf("Level: %d,\n Room: %d\n", player->position.level, player->position.room);
 
+        consume_room(player);
+
         if (player->position.level == NB_LEVEL-1)
         {
             victory = 1;
@@ -46,4 +48,38 @@ char move_to_room(Player * player, int level, int room)
 
 
     return player->map.map[level][room];
+}
+
+/*
+*      - 50% de monstres           (M)
+*      - 25% de trésors            (T)
+*      - 15% d'évènements spéciaux (E)
+*      - 10% de salles vides       (V)
+*      + si dernier niveau: boss   (B)
+*/
+int consume_room(Player * player)
+{
+    int is_alive;
+
+    if (player->map.map[player->position.level][player->position.room] == 'M')
+    {
+
+    } else if (player->map.map[player->position.level][player->position.room] == 'T')
+    {
+
+    } else if (player->map.map[player->position.level][player->position.room] == 'E')
+    {
+
+    } else if (player->map.map[player->position.level][player->position.room] == 'V')
+    {
+
+    } else if (player->map.map[player->position.level][player->position.room] == 'B')
+    {
+
+    } else
+    {
+        is_alive = 1;
+    }
+
+    return is_alive;
 }

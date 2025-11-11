@@ -34,14 +34,13 @@ typedef struct Monster
 {
     int id;
     char name[30];
-    int max_pov;
-    int current_pov;
+    int max_hp;
+    int current_hp;
     int min_strength;
     int max_strength;
     int defense;
     int speed;
-    int is_alive;
-    // TODO: gérer les capacités spéciales
+    char special_power[30];
 } Monster;
 
 #endif //CODE_BASES_H
