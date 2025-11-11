@@ -5,8 +5,21 @@
 #ifndef CODE_BASES_H
 #define CODE_BASES_H
 
+typedef struct Map
+{
+    int nb_level;
+    int room_by_level;
+    char ** map;
+} Map;
+
+typedef struct Position
+{
+    int row, col;
+} Position;
+
 typedef struct Player
 {
+    Map map;
     int max_pov;
     int current_pov;
     int max_breathe;

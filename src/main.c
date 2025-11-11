@@ -16,6 +16,7 @@
 
 #include "../include/DataStructures/ascii.h"
 #include "../include/DataStructures/bases.h"
+#include "../include/Game/map.h"
 
 
 int main(int argc, char * argv[])
@@ -35,10 +36,29 @@ int main(int argc, char * argv[])
     switch (choice)
     {
     case 1:
+        // ascii_new_game();
+        printf("----------\n"
+               "Nouvelle partie!\n");
+        // initialisation des personnages
+        Player * player = malloc(sizeof(Player));
+        player->map.nb_level = NB_LEVEL;
+        player->map.room_by_level = NB_ROOM_BY_LEVEL;
+
+        // TODO: allouer les monstres
+
+        // TODO: allouer la carte
+        allocate_map(&(player->map));
+        print_map(&(player->map));
         // score = launch_game();
         score = 0;
-        printf("Score final: %d\n", score);
+
         // TODO: implémenter un classement?
+        printf("Score final: %d\n", score);
+
+        // libération
+        free_map(&(player->map));
+        free(player);
+
         break;
     case 2:
         printf("Bye!\n");
