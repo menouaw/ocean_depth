@@ -45,7 +45,7 @@ void populate_map(Map * map)
             random = rand() % (100);
             if (random > 100-PROB_EMPTY_ROOM)
             {
-                  map->map[i][j] = 'V';
+                map->map[i][j] = 'V';
             } else if (random > 100-PROB_EVENT-PROB_EMPTY_ROOM)
             {
                 map->map[i][j] = 'E';
@@ -73,7 +73,7 @@ void print_map(Map* map)
 {
     for (int i = 0; i < map->nb_level; ++i)
     {
-        printf("Niveau: -%d | ", i);
+        printf("Niveau: -%d | ", i+1);
         for (int j = 0; j < map->room_by_level; ++j)
         {
             printf("%3c", map->map[i][j]);

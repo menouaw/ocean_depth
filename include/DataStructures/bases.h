@@ -14,14 +14,16 @@ typedef struct Map
 
 typedef struct Position
 {
-    int row, col;
+    int level, room;
 } Position;
 
 typedef struct Player
 {
+    int score;
     Map map;
-    int max_pov;
-    int current_pov;
+    Position position;
+    int max_hp;
+    int current_hp;
     int max_breathe;
     int current_breathe;
     int exhaust;

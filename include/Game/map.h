@@ -4,13 +4,13 @@
 
 #include "../DataStructures/bases.h"
 
-#define NB_LEVEL 3
-#define NB_ROOM_BY_LEVEL 10
+#define NB_LEVEL            3
+#define NB_ROOM_BY_LEVEL    10
 
-#define PROB_MONSTER 50
-#define PROB_TREASURE 25
-#define PROB_EVENT 15
-#define PROB_EMPTY_ROOM 10
+#define PROB_MONSTER        50
+#define PROB_TREASURE       25
+#define PROB_EVENT          15
+#define PROB_EMPTY_ROOM     10
 
 #ifndef CODE_MAP_H
 #define CODE_MAP_H
