@@ -4,6 +4,12 @@
 
 #include "../DataStructures/bases.h"
 
+#define GAME_IN_PROGRESS    -1
+#define GAME_WIN            1
+#define GAME_LOOSE          0
+
+#define P_BREATHE_LOOSES_BY_ROOM 10
+
 #ifndef CODE_ACTIONS_H
 #define CODE_ACTIONS_H
 

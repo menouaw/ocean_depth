@@ -4,7 +4,7 @@
 
 #include "../DataStructures/bases.h"
 
-#define WAIT_TIME 0
+#define WAIT_TIME 3
 
 #ifndef CODE_INTERFACE_H
 #define CODE_INTERFACE_H

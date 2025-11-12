@@ -71,6 +71,7 @@ void populate_map(Map * map)
 
 void print_map(Map* map)
 {
+    printf("Aide:\n");
     for (int i = 0; i < map->nb_level; ++i)
     {
         printf("Niveau: -%d | ", i+1);
@@ -80,6 +81,7 @@ void print_map(Map* map)
         }
         printf("\n");
     }
+    printf("----------\n");
 }
 
 void free_map(Map* map)

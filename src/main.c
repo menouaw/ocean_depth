@@ -29,11 +29,11 @@ int main(int argc, char * argv[])
     srand(time(NULL));
 
     int choice;
-    int is_victory;
+    int victory;
 
-    // ascii_title();
-    // sleep(WAIT_TIME);
-    // clear_screen();
+    ascii_title();
+    sleep(WAIT_TIME);
+    clear_screen();
 
     printf("S%clectionnez:\n", 130);
     printf("1. Lancer une partie.\n");
@@ -45,9 +45,10 @@ int main(int argc, char * argv[])
     switch (choice)
     {
     case 1:
-        // ascii_new_game();
-        printf("----------\n"
-               "Nouvelle partie!\n");
+        ascii_new_game();
+        sleep(WAIT_TIME);
+        clear_screen();
+
         // initialisation du joueur (et de ses caractéristiques)
         Player * player = malloc(sizeof(Player));
         player->score = 0;
@@ -70,9 +71,16 @@ int main(int argc, char * argv[])
         populate_map(&(player->map));
 
         print_map(&(player->map));
-        is_victory = launch_game(player);
+        victory = launch_game(player);
 
         // TODO: implémenter un classement?
+        if (victory)
+        {
+            printf("Victoire!\n");
+        } else
+        {
+            printf("Défaite...\n");
+        }
         printf("Score final: %d\n", player->score);
 
         // libération

@@ -3,11 +3,16 @@
 //
 
 #include "../../include/Game/actions.h"
+#include "../../include/DataStructures/ascii.h"
 
 #include <stdio.h>
+#include <unistd.h>
 
+#include "../../include/Game/checks.h"
 #include "../../include/Game/interface.h"
 #include "../../include/Game/map.h"
+#include "../../include/Game/monsters.h"
+#include "../../include/Game/treasure.h"
 
 int launch_game(Player * player)
 {
@@ -20,10 +25,11 @@ int launch_game(Player * player)
      * 5b. retourner à l'étape 1
      */
 
-    int victory = -1;
+    int victory = GAME_IN_PROGRESS;
+    int room_result;
     int choice;
 
-    while (victory == -1)
+    while (victory == GAME_IN_PROGRESS)
     {
         print_player_interface(player);
         choice = get_player_choice();
@@ -31,11 +37,16 @@ int launch_game(Player * player)
         move_to_room(player, player->position.level+1, choice);
         // printf("Level: %d,\n Room: %d\n", player->position.level, player->position.room);
 
-        consume_room(player);
+        room_result = consume_room(player);
+
+        if (room_result == MONSTER_WINS)
+        {
+            victory = GAME_LOOSE;
+        }
 
         if (player->position.level == NB_LEVEL-1)
         {
-            victory = 1;
+            victory = GAME_WIN;
         }
     }
     return victory;
@@ -59,27 +70,51 @@ char move_to_room(Player * player, int level, int room)
 */
 int consume_room(Player * player)
 {
-    int is_alive;
+    int room_result = FIGHT_IN_PROGRESS;
 
     if (player->map.map[player->position.level][player->position.room] == 'M')
     {
+        ascii_fight();
+        sleep(WAIT_TIME);
+        clear_screen();
+        Monster monster = generate_monster();
+        room_result = fight_monster(player, &monster);
 
     } else if (player->map.map[player->position.level][player->position.room] == 'T')
     {
-
+        ascii_treasure();
+        sleep(WAIT_TIME);
+        clear_screen();
+        open_chest(player);
     } else if (player->map.map[player->position.level][player->position.room] == 'E')
     {
-
+        // TODO: implémenter des évènements aléatoires
     } else if (player->map.map[player->position.level][player->position.room] == 'V')
     {
-
+        // salle vide: rien à faire
+        // ascii_empty_room();
+        // sleep(WAIT_TIME);
+        // clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'B')
     {
-
+        // TODO: implémenter un combat de boss
+        // ascii_boss();
+        // sleep(WAIT_TIME);
+        // clear_screen();
     } else
     {
-        is_alive = 1;
+        if (player->map.map[player->position.level] != 0) // FIX??
+        {
+            fprintf(stderr, "Erreur lors de la consommation de la salle.\n");
+        }
     }
 
-    return is_alive;
+    player->current_breathe -= P_BREATHE_LOOSES_BY_ROOM;
+
+    if (check_player_is_alive(player) == 0)
+    {
+        room_result = MONSTER_WINS;
+    }
+
+    return room_result;
 }

@@ -7,8 +7,8 @@
 #ifndef CODE_CHECKS_H
 #define CODE_CHECKS_H
 
-int check_player_hp(Player * player);
+int check_player_is_alive(Player * player);
 
-int check_monster_hp(Monster * monster);
+int check_monster_is_alive(Monster * monster);
 
 #endif //CODE_CHECKS_H
