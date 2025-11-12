@@ -4,6 +4,7 @@
 
 #include "../../include/Game/monsters.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "../../include/Game/checks.h"
@@ -24,7 +25,8 @@ int fight_monster(Player * player, Monster * monster)
     int is_alive = -1;
     int turn;
 
-    if (player->current_hp - player->exhaust > monster->speed)
+    // if (player->current_hp - player->exhaust > monster->speed)
+    if (player->speed > monster->speed)
     {
         turn = 0; // joueur commence
     } else
@@ -58,17 +60,81 @@ int fight_monster(Player * player, Monster * monster)
                 break;
             }
         }
-
-        return winner;
     }
+    return winner;
 }
 
-int player_attack_monster(Player * player, Monster * monster)
+void player_attack_monster(Player * player, Monster * monster)
 {
+    /*
+     * quatre possibilités:
+     *      - succès            (50%)
+     *      - succès critique   (20%)
+     *      - échec             (20%)
+     *      - échec critique    (10%)
+     */
+
+    int rand_value = rand() % 100;
+    
+    if (rand_value > 100-PROB_PLAYER_CRITICAL_FAILURE)
+    {
+        player->current_hp -= (player->current_hp * 0.05) + P_HP_LOOSES_ON_FAILURE;
+        player->current_breathe -= P_BREATHE_LOOSES_ON_FAILURE;
+        player->exhaust += P_EXHAUST_GAINS_ON_FAILURE;
+
+    } else if (rand_value > 100-PROB_PLAYER_FAILURE-PROB_PLAYER_CRITICAL_FAILURE)
+    {
+        player->exhaust += P_EXHAUST_GAINS_ON_FAILURE;
+    } else if (rand_value > 100-PROB_PLAYER_CRITICAL_SUCCESS-PROB_PLAYER_FAILURE-PROB_PLAYER_CRITICAL_FAILURE)
+    {
+        // effets joueur
+        player->strength += P_STRENGTH_GAINS_ON_SUCCESS;
+        player->max_hp += P_HP_GAINS_ON_SUCCESS;
+        player->speed += P_SPEED_GAINS_ON_SUCCESS;
+
+        // effets monstre
+        monster->current_hp -= ((player->strength*2)-monster->defense);
+
+    } else if (rand_value > 100-PROB_PLAYER_SUCCESS-PROB_PLAYER_CRITICAL_SUCCESS-PROB_PLAYER_CRITICAL_FAILURE-PROB_PLAYER_FAILURE)
+    {
+        player->strength += P_STRENGTH_GAINS_ON_SUCCESS;
+
+        monster->current_hp -= (monster->defense > player->strength)? MIN_VALUE_ATTACK : player->strength-monster->defense;
+    } else
+    {
+        fprintf(stderr, "Erreur sur l'attaque du joueur.\n");
+    }
+
+    player->current_breathe -= P_BREATHE_LOOSES_ON_ATTACK;
 }
 
-int monster_attack_player(Player * player, Monster * monster)
+void monster_attack_player(Player * player, Monster * monster)
 {
+    int rand_value = rand() % 100;
+    int monster_attack = monster->min_strength + rand() % (monster->max_strength - monster->min_strength + 1);
+
+    if (rand_value > 100-PROB_MONSTER_CRITICAL_FAILURE)
+    {
+        monster->current_hp -= M_HP_LOOSES_ON_FAILURE*2;
+        monster->defense -= M_DEFENSE_LOOSES_ON_FAILURE;
+    } else if (rand_value > 100-PROB_MONSTER_CRITICAL_SUCCESS-PROB_MONSTER_CRITICAL_FAILURE)
+    {
+        // effets monstre
+        monster->current_hp += M_HP_GAINS_ON_SUCCESS;
+        monster->defense += M_DEFENSE_GAINS_ON_SUCCESS;
+
+        // effets joueur
+        player->current_hp -= (player->defense > monster_attack)? MIN_VALUE_ATTACK : player->defense - monster_attack;
+    } else if (rand_value > 100-PROB_MONSTER_FAILURE-PROB_MONSTER_CRITICAL_SUCCESS-PROB_MONSTER_CRITICAL_FAILURE)
+    {
+        monster->defense -= M_DEFENSE_LOOSES_ON_FAILURE;
+    } else if (rand_value > 100-PROB_MONSTER_SUCCESS-PROB_MONSTER_FAILURE-PROB_MONSTER_CRITICAL_SUCCESS-PROB_MONSTER_CRITICAL_FAILURE)
+    {
+        player->current_hp -= (player->defense > monster_attack)? MIN_VALUE_ATTACK : player->defense - monster_attack;
+    } else
+    {
+        fprintf(stderr, "Erreur sur l'attaque du monstre.\n");
+    }
 }
 
 void reset_monster_hp(Monster * monster)
@@ -77,19 +143,19 @@ void reset_monster_hp(Monster * monster)
 }
 
 
-const Monster jellyfish = {
+Monster jellyfish = {
     .id=0,
     .name = "Meduse",
     .max_hp = 20,
     // .current_hp = .max_hp,
     .min_strength = 5,
     .max_strength = 10,
-    .defense = 2,
+    .defense = 2 ,
     .speed = 2,
     .special_power = "Electrocution"
 };
 
-const Monster shark = {
+Monster shark = {
     .id=1,
     .name = "Requin",
     .max_hp = 30,

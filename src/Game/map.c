@@ -57,7 +57,7 @@ void populate_map(Map * map)
                 map->map[i][j] = 'M';
             } else
             {
-                map->map[i][j] = 'V'; // salle vide en cas d'erreur
+                fprintf(stderr, "Erreur sur l'assignation de la salle.\n");
             }
 
             // boss légendaire en cas d'atteinte du dernier niveau

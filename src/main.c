@@ -54,6 +54,9 @@ int main(int argc, char * argv[])
         player->position.level = -1;
         player->position.room = -1;
         player->current_hp = NB_STARTING_HP;
+        player->strength = NB_STARTING_STRENGTH;
+        player->defense = NB_STARTING_DEFENSE;
+        player->speed = NB_STARTING_SPEED;
         player->current_breathe = NB_STARTING_BREATHE;
         player->map.nb_level = NB_LEVEL;
         player->map.room_by_level = NB_ROOM_BY_LEVEL;

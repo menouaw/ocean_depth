@@ -24,6 +24,9 @@ typedef struct Player
     Position position;
     int max_hp;
     int current_hp;
+    int strength;
+    int defense;
+    int speed;
     int max_breathe;
     int current_breathe;
     int exhaust;
