@@ -12,23 +12,10 @@
 
 #define MIN_VALUE_ATTACK 1
 
-#define PROB_PLAYER_SUCCESS             50
-#define PROB_PLAYER_CRITICAL_SUCCESS    20
-#define PROB_PLAYER_FAILURE             20
-#define PROB_PLAYER_CRITICAL_FAILURE    10
-
 #define PROB_MONSTER_SUCCESS             40
 #define PROB_MONSTER_CRITICAL_SUCCESS    15
 #define PROB_MONSTER_FAILURE             35
 #define PROB_MONSTER_CRITICAL_FAILURE    10
-
-#define P_HP_GAINS_ON_SUCCESS           5
-#define P_HP_LOOSES_ON_FAILURE          5
-#define P_BREATHE_LOOSES_ON_ATTACK      5
-#define P_BREATHE_LOOSES_ON_FAILURE     5
-#define P_STRENGTH_GAINS_ON_SUCCESS     5
-#define P_EXHAUST_GAINS_ON_FAILURE      5
-#define P_SPEED_GAINS_ON_SUCCESS        5
 
 #define M_HP_GAINS_ON_SUCCESS           2
 #define M_HP_LOOSES_ON_FAILURE          5

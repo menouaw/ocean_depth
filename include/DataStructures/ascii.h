@@ -31,6 +31,22 @@ extern const char * critical_failure;
 
 extern const char * player;
 
+extern const char * player_turn;
+
+extern const char * monster_turn;
+
+extern const char * attack_result_frame_one;
+
+extern const char * attack_result_frame_two;
+
+extern const char * attack_result_frame_three;
+
+void ascii_attack_result();
+
+void ascii_monster_turn();
+
+void ascii_player_turn();
+
 void ascii_player();
 
 void ascii_critical_failure();

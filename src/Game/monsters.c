@@ -11,6 +11,7 @@
 #include "../../include/Game/checks.h"
 #include "../../include/DataStructures/ascii.h"
 #include "../../include/Game/interface.h"
+#include "../../include/Game/player.h"
 
 const Monster * monsters[] = {
     &jellyfish,
@@ -41,6 +42,7 @@ int fight_monster(Player * player, Monster * monster)
     {
         if (turn%2==0) // tour du joueur
         {
+            ascii_player_turn();
             ascii_player();
             sleep(WAIT_TIME);
             clear_screen();
@@ -57,6 +59,7 @@ int fight_monster(Player * player, Monster * monster)
             }
         } else // tour du monstre
         {
+            ascii_monster_turn();
             ascii_monster();
             sleep(WAIT_TIME);
             clear_screen();
@@ -86,16 +89,19 @@ void player_attack_monster(Player * player, Monster * monster)
      */
 
     int rand_value = rand() % 100;
-    
+
+    ascii_attack_result();
+
     if (rand_value > 100-PROB_PLAYER_CRITICAL_FAILURE)
     {
         ascii_critical_failure();
         sleep(WAIT_TIME);
         clear_screen();
 
-        player->current_hp -= (player->current_hp * 0.05) + P_HP_LOOSES_ON_FAILURE;
+        player->current_hp -= P_HP_LOOSES_ON_FAILURE;
         player->current_breathe -= P_BREATHE_LOOSES_ON_FAILURE;
         player->exhaust += P_EXHAUST_GAINS_ON_FAILURE;
+
 
     } else if (rand_value > 100-PROB_PLAYER_FAILURE-PROB_PLAYER_CRITICAL_FAILURE)
     {
@@ -114,9 +120,10 @@ void player_attack_monster(Player * player, Monster * monster)
         player->strength += P_STRENGTH_GAINS_ON_SUCCESS;
         player->max_hp += P_HP_GAINS_ON_SUCCESS;
         player->speed += P_SPEED_GAINS_ON_SUCCESS;
+        player->score += P_SCORE_GAINS_ON_SUCCESS * 2;
 
         // effets monstre
-        monster->current_hp -= ((player->strength*2)-monster->defense);
+        monster->current_hp -= (monster->defense > player->strength*2)? MIN_VALUE_ATTACK : player->strength*2-monster->defense;
 
     } else if (rand_value > 100-PROB_PLAYER_SUCCESS-PROB_PLAYER_CRITICAL_SUCCESS-PROB_PLAYER_CRITICAL_FAILURE-PROB_PLAYER_FAILURE)
     {
@@ -125,6 +132,7 @@ void player_attack_monster(Player * player, Monster * monster)
         clear_screen();
 
         player->strength += P_STRENGTH_GAINS_ON_SUCCESS;
+        player->score += P_SCORE_GAINS_ON_SUCCESS;
 
         monster->current_hp -= (monster->defense > player->strength)? MIN_VALUE_ATTACK : player->strength-monster->defense;
     } else
@@ -139,6 +147,8 @@ void monster_attack_player(Player * player, Monster * monster)
 {
     int rand_value = rand() % 100;
     int monster_attack = monster->min_strength + rand() % (monster->max_strength - monster->min_strength + 1);
+
+    ascii_attack_result();
 
     if (rand_value > 100-PROB_MONSTER_CRITICAL_FAILURE)
     {

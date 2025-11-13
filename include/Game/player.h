@@ -8,6 +8,21 @@
 #define NB_STARTING_DEFENSE     5
 #define NB_STARTING_SPEED       10
 
+#define PROB_PLAYER_SUCCESS             50
+#define PROB_PLAYER_CRITICAL_SUCCESS    20
+#define PROB_PLAYER_FAILURE             20
+#define PROB_PLAYER_CRITICAL_FAILURE    10
+
+#define P_SCORE_GAINS_ON_CHEST          5
+#define P_HP_GAINS_ON_SUCCESS           5
+#define P_SCORE_GAINS_ON_SUCCESS        5
+#define P_HP_LOOSES_ON_FAILURE          5
+#define P_BREATHE_LOOSES_ON_ATTACK      5
+#define P_BREATHE_LOOSES_ON_FAILURE     5
+#define P_STRENGTH_GAINS_ON_SUCCESS     5
+#define P_EXHAUST_GAINS_ON_FAILURE      5
+#define P_SPEED_GAINS_ON_SUCCESS        5
+
 #ifndef CODE_PLAYER_H
 #define CODE_PLAYER_H
 

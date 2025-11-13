@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include "../../include/DataStructures/ascii.h"
+#include "../../include/Game/player.h"
 
 void open_chest(Player* player)
 {
@@ -15,4 +16,5 @@ void open_chest(Player* player)
     sleep(WAIT_TIME);
     clear_screen();
     player->money += MIN_MONEY_IN_CHEST + (rand() % MAX_MONEY_IN_CHEST + 1);
+    player->score += P_SCORE_GAINS_ON_CHEST;
 }

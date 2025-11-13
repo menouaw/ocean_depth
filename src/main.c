@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
             printf("Victoire!\n");
         } else
         {
-            printf("Défaite...\n");
+            printf("D%cfaite...\n", 130);
         }
         printf("Score final: %d\n", player->score);
 
