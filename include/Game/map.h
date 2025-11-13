@@ -4,8 +4,8 @@
 
 #include "../DataStructures/bases.h"
 
-#define NB_LEVEL            30
-#define NB_ROOM_BY_LEVEL    30
+#define NB_LEVEL            3
+#define NB_ROOM_BY_LEVEL    10
 
 #define PROB_MONSTER        50
 #define PROB_TREASURE       25

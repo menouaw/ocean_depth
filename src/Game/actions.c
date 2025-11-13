@@ -87,15 +87,21 @@ int consume_room(Player * player)
         sleep(WAIT_TIME);
         clear_screen();
         open_chest(player);
+        ascii_chest();
+        sleep(WAIT_TIME);
+        clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'E')
     {
         tornado(player);
     } else if (player->map.map[player->position.level][player->position.room] == 'V')
     {
         // salle vide: rien à faire
-        // ascii_empty_room();
-        // sleep(WAIT_TIME);
-        // clear_screen();
+        ascii_empty_room();
+        sleep(WAIT_TIME);
+        clear_screen();
+        ascii_empty();
+        sleep(WAIT_TIME);
+        clear_screen()
     } else if (player->map.map[player->position.level][player->position.room] == 'B')
     {
         // TODO: implémenter un combat de boss
@@ -104,7 +110,7 @@ int consume_room(Player * player)
         // clear_screen();
     } else
     {
-        if (player->position.level != 0) // FIX??
+        if (player->position.level != 0)
         {
             fprintf(stderr, "Erreur lors de la consommation de la salle.\n");
         }

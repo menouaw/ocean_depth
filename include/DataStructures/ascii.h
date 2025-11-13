@@ -41,6 +41,14 @@ extern const char * attack_result_frame_two;
 
 extern const char * attack_result_frame_three;
 
+extern const char * empty;
+
+extern const char * empty_room;
+
+void ascii_empty_room();
+
+void ascii_empty();
+
 void ascii_attack_result();
 
 void ascii_monster_turn();
