@@ -10,6 +10,7 @@
 
 #include "../../include/Game/checks.h"
 #include "../../include/Game/interface.h"
+#include "../../include/Game/events.h"
 #include "../../include/Game/map.h"
 #include "../../include/Game/monsters.h"
 #include "../../include/Game/treasure.h"
@@ -88,7 +89,7 @@ int consume_room(Player * player)
         open_chest(player);
     } else if (player->map.map[player->position.level][player->position.room] == 'E')
     {
-        // TODO: implémenter des évènements aléatoires
+        tornado(player);
     } else if (player->map.map[player->position.level][player->position.room] == 'V')
     {
         // salle vide: rien à faire
@@ -103,7 +104,7 @@ int consume_room(Player * player)
         // clear_screen();
     } else
     {
-        if (player->map.map[player->position.level] != 0) // FIX??
+        if (player->position.level != 0) // FIX??
         {
             fprintf(stderr, "Erreur lors de la consommation de la salle.\n");
         }

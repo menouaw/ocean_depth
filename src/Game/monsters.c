@@ -54,6 +54,7 @@ int fight_monster(Player * player, Monster * monster)
             if (is_alive == 0)
             {
                 reset_monster_hp(monster);
+                player->score += P_SCORE_GAINS_ON_SUCCESS;
                 winner = PLAYER_WINS;
                 break;
             }
@@ -133,6 +134,7 @@ void player_attack_monster(Player * player, Monster * monster)
 
         player->strength += P_STRENGTH_GAINS_ON_SUCCESS;
         player->score += P_SCORE_GAINS_ON_SUCCESS;
+        player->exhaust += P_EXHAUST_GAINS_ON_SUCCESS;
 
         monster->current_hp -= (monster->defense > player->strength)? MIN_VALUE_ATTACK : player->strength-monster->defense;
     } else

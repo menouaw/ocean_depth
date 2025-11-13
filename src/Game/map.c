@@ -43,18 +43,18 @@ void populate_map(Map * map)
         for (int j = 0; j < map->room_by_level; ++j)
         {
             rand_value = rand() % 100;
-            if (rand_value > 100-PROB_EMPTY_ROOM)
-            {
-                map->map[i][j] = 'V';
-            } else if (rand_value > 100-PROB_EVENT-PROB_EMPTY_ROOM)
-            {
-                map->map[i][j] = 'E';
-            } else if (rand_value > 100-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
-            {
-                map->map[i][j] = 'T';
-            } else if (rand_value > 100-PROB_MONSTER-PROB_TREASURE-PROB_EVENT-PROB_EMPTY_ROOM)
+            if (rand_value < PROB_MONSTER)
             {
                 map->map[i][j] = 'M';
+            } else if (rand_value < PROB_TREASURE+PROB_MONSTER)
+            {
+                map->map[i][j] = 'T';
+            } else if (rand_value < PROB_EVENT+PROB_TREASURE+PROB_MONSTER)
+            {
+                map->map[i][j] = 'E';
+            } else if (rand_value < PROB_EMPTY_ROOM+PROB_EVENT+PROB_TREASURE+PROB_MONSTER)
+            {
+                map->map[i][j] = 'V';
             } else
             {
                 fprintf(stderr, "Erreur sur l'assignation de la salle.\n");
@@ -74,7 +74,7 @@ void print_map(Map* map)
     printf("Aide:\n");
     for (int i = 0; i < map->nb_level; ++i)
     {
-        printf("Niveau: -%d | ", i+1);
+        printf("Niveau: %4d | ", -(i+1));
         for (int j = 0; j < map->room_by_level; ++j)
         {
             printf("%3c", map->map[i][j]);
