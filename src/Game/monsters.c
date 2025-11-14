@@ -43,6 +43,7 @@ int fight_monster(Player * player, Monster * monster)
         if (turn%2==0) // tour du joueur
         {
             ascii_player_turn();
+            print_fight_player_infos(player);
             ascii_player();
             sleep(WAIT_TIME);
             clear_screen();
@@ -56,12 +57,12 @@ int fight_monster(Player * player, Monster * monster)
                 reset_monster_hp(monster);
                 player->score += P_SCORE_GAINS_ON_SUCCESS;
                 winner = PLAYER_WINS;
-                break;
             }
         } else // tour du monstre
         {
             ascii_monster_turn();
-            ascii_monster();
+            print_fight_monster_infos(monster);
+            ascii_monster(monster->ascii);
             sleep(WAIT_TIME);
             clear_screen();
 
@@ -72,7 +73,6 @@ int fight_monster(Player * player, Monster * monster)
             if (is_alive == 0)
             {
                 winner = MONSTER_WINS;
-                break;
             }
         }
     }
@@ -201,20 +201,44 @@ void reset_monster_hp(Monster * monster)
 Monster jellyfish = {
     .id=0,
     .name = "Meduse",
-    .max_hp = 20,
-    .current_hp = 20,
+    .max_hp = 50,
+    .current_hp = 50,
     .min_strength = 5,
     .max_strength = 10,
     .defense = 2 ,
     .speed = 2,
     .special_power = "Electrocution",
+    .ascii =
+"   A       ;\n"
+"|   ,--,-/ \\---,-/|  ,\n"
+"_|\\,'. /|      /|   `/|-.\n"
+"\\`.'    /|      ,            `;.\n"
+",'\\   A     A         A   A _ /| `.;\n"
+",/  _              A       _  / _   /|  ;\n"
+"/\\  / \\   ,  ,           A  /    /     `/|\n"
+"/_| | _ \\         ,     ,             ,/  \\\n"
+"// | |/ `.\\  ,-      ,       ,   ,/ ,/      \\ /\n"
+"/ @| |@  / /'   \\  \\      ,              >  /|    ,--.\n"
+"|\\_/   \\_/ /      |  |           ,  ,/        \\  ./' __:..\n"
+"|  __ __  |       |  | .--.  ,         >  >   |-'   /     `\n"
+",/| /  '  \\ |       |  |     \\      ,           |    /\n"
+"/  |<--.__,->|       |  | .    `.        >  >    /   (\n"
+"/_,' \\\\  ^  /  \\     /  /   `.    >--            /^\\   |\n"
+"\\\\___/    \\   /  /      \\__'     \\   \\   \\ /   \\  |\n"
+"`.   |/          ,  ,                  /`\\    \\  )\n"
+"  \\  '  |/    ,       V    \\          /        `-\\\n"
+"`|/  '  V      V           \\    \\.'            \\_\n"
+"    '`-.       V       V        \\./'\\\n"
+"        `|/-.      \\ /   \\ /,---`\\         kat\n"
+"         /   `._____V_____V'\n"
+"                    ^     ^ \n"
 };
 
 Monster shark = {
     .id=1,
     .name = "Requin",
-    .max_hp = 30,
-    .current_hp = 30,
+    .max_hp = 50,
+    .current_hp = 50,
     .min_strength = 10,
     .max_strength = 20,
     .defense = 5,

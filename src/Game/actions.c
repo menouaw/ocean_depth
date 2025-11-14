@@ -101,7 +101,7 @@ int consume_room(Player * player)
         clear_screen();
         ascii_empty();
         sleep(WAIT_TIME);
-        clear_screen()
+        clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'B')
     {
         // TODO: implémenter un combat de boss

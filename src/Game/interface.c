@@ -45,3 +45,25 @@ void clear_screen()
 {
     system("cls");
 }
+
+void print_fight_player_infos(Player * player)
+{
+    printf("Joueur: \n"
+           "Points de vie: %d\n"
+           "Force: %d\n"
+           "D%cfense: %d\n"
+           "Vitesse: %d\n"
+           "Souffle: %d\n"
+           "Fatigue: %d\n", player->current_hp, player->strength, 130, player->defense, player->speed,
+           player->current_breathe, player->exhaust);
+};
+
+void print_fight_monster_infos(Monster * monster)
+{
+    printf("Type: %s\n"
+           "Points de vie: %d\n"
+           "Echelle d'attaque: %d-%d\n"
+           "D%cfense: %d\n"
+           "Vitesse: %d\n", monster->name, monster->current_hp, monster->min_strength, monster->max_strength, 130,
+           monster->defense, monster->speed);
+}

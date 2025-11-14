@@ -34,9 +34,9 @@ void ascii_chest()
     printf("%s\n", chest);
 }
 
-void ascii_monster()
+void ascii_monster(char * ascii)
 {
-    printf("%s\n", monster);
+    printf("%s\n", ascii);
 }
 
 void ascii_success()

@@ -15,4 +15,8 @@ void print_player_interface(Player * player);
 
 void clear_screen();
 
+void print_fight_player_infos(Player * player);
+
+void print_fight_monster_infos(Monster * monster);
+
 #endif //CODE_INTERFACE_H
