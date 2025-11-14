@@ -198,9 +198,53 @@ void reset_monster_hp(Monster * monster)
     monster->current_hp = monster->max_hp;
 }
 
+Monster * get_boss()
+{
+    return &boss;
+}
+
+Monster boss = {
+    .name = "Poseidon",
+    .max_hp = 100,
+    .current_hp = 100,
+    .min_strength = 30,
+    .max_strength = 50,
+    .defense = 10,
+    .speed = 20,
+    .ascii =
+"        ~         ~            ~     w   W   w\n"
+"                           ~          \\  |  /       ~\n"
+"               ~        ~        ~     \\.|./    ~\n"
+"                                         |\n"
+"                              ~       ~  |           ~\n"
+"              o        ~   .:.:.:.       | ~\n"
+"         ~                 wwWWWww      //   ~\n"
+"                   ((c     //'''\\\\     //|        ~\n"
+"          o       /\\/\\((  (. @ @ .)   // |  ~\n"
+"                 (d d  ((  \\\\\\\\^///   //  |\n"
+"            o    /   / c((-\\\'///-.//   |     ~\n"
+"                /===/ `) (( \\|// ,_/    |~\n"
+"         ~     /o o/  / c((( \\|/  |      |  ~          ~\n"
+"            ~  `~`^  / c (((  '   |      |          ~\n"
+"                    /c  c(((      |  ~   |      ~\n"
+"             ~     /  c  (((  .   |      |   ~           ~\n"
+"                  / c   c ((^^^^^^`\\   ~ | ~        ~       \n"
+"                 |c  c c  c((^^^ ^^^`\\   |\n"
+"         ~        \\ c   c   c(^^^^^^^^`\\ |    ~       \n"
+"              ~    `\\ c   c  c;`\\^^^^^./ |             ~\n"
+"                     `\\c c  c  ;/^^^^^/  |  ~\n"
+"          ~        ~   `\\ c  c /^^^^/' ~ |       ~\n"
+"                ~        `;c   |^^/'     o\n"
+"                    .-.  ,' c c//^\\         ~\n"
+"            ~      ( @ `.`c  -///^\\\\  ~             ~\n"
+"                    \\ -` c__/|/     \\|jgs\n"
+"             ~       `---'   '   ~   '          ~\n"
+"        ~          ~          ~           ~             ~\n"
+
+};
+
 
 Monster jellyfish = {
-    .id=0,
     .name = "Meduse",
     .max_hp = 50,
     .current_hp = 50,
@@ -236,7 +280,6 @@ Monster jellyfish = {
 };
 
 Monster shark = {
-    .id=1,
     .name = "Requin",
     .max_hp = 50,
     .current_hp = 50,
@@ -262,7 +305,6 @@ Monster shark = {
 };
 
 Monster pufferfish = {
-    .id=2,
     .name = "Poisson-globe",
     .max_hp = 25,
     .current_hp = 25,

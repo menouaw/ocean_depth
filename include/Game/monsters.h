@@ -29,6 +29,8 @@ extern Monster jellyfish;
 extern Monster shark;
 extern Monster pufferfish;
 
+extern Monster boss;
+
 Monster generate_monster();
 
 int fight_monster(Player * player, Monster * monster);
@@ -38,5 +40,7 @@ void player_attack_monster(Player * player, Monster * monster);
 void monster_attack_player(Player * player, Monster * monster);
 
 void reset_monster_hp(Monster * monster);
+
+Monster * get_boss();
 
 #endif //CODE_MONSTERS_H

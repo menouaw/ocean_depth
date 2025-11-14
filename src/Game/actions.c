@@ -104,10 +104,10 @@ int consume_room(Player * player)
         clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'B')
     {
-        // TODO: implémenter un combat de boss
-        // ascii_boss();
-        // sleep(WAIT_TIME);
-        // clear_screen();
+        ascii_end_boss();
+        sleep(WAIT_TIME);
+        clear_screen();
+        room_result = fight_monster(player, get_boss());
     } else
     {
         if (player->position.level != 0)

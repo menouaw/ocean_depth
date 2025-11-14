@@ -41,6 +41,10 @@ extern const char * attack_result_frame_two;
 
 extern const char * attack_result_frame_three;
 
+extern const char * end_boss;
+
+void ascii_end_boss();
+
 extern const char * empty;
 
 extern const char * empty_room;

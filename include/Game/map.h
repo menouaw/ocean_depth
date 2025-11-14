@@ -4,7 +4,7 @@
 
 #include "../DataStructures/bases.h"
 
-#define NB_LEVEL            3
+#define NB_LEVEL            10
 #define NB_ROOM_BY_LEVEL    10
 
 #define PROB_MONSTER        50

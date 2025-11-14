@@ -35,7 +35,6 @@ typedef struct Player
 
 typedef struct Monster
 {
-    int id;
     char name[30];
     int max_hp;
     int current_hp;
