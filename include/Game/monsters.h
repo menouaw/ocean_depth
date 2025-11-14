@@ -4,7 +4,7 @@
 
 #include "../DataStructures/bases.h"
 
-#define NB_MONSTERS 2
+#define NB_MONSTERS 3
 
 #define FIGHT_IN_PROGRESS   -1
 #define PLAYER_WINS         1
@@ -27,6 +27,7 @@
 
 extern Monster jellyfish;
 extern Monster shark;
+extern Monster pufferfish;
 
 Monster generate_monster();
 

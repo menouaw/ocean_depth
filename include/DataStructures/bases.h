@@ -44,7 +44,7 @@ typedef struct Monster
     int defense;
     int speed;
     char special_power[30];
-    char ascii[999];
+    char ascii[2999];
 } Monster;
 
 #endif //CODE_BASES_H

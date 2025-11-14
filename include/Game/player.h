@@ -4,9 +4,9 @@
 
 #define NB_STARTING_HP          100
 #define NB_STARTING_BREATHE     100
-#define NB_STARTING_STRENGTH    20
+#define NB_STARTING_STRENGTH    100
 #define NB_STARTING_DEFENSE     5
-#define NB_STARTING_SPEED       10
+#define NB_STARTING_SPEED       0
 
 #define PROB_PLAYER_SUCCESS             50
 #define PROB_PLAYER_CRITICAL_SUCCESS    20

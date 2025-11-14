@@ -16,6 +16,7 @@
 const Monster * monsters[] = {
     &jellyfish,
     &shark,
+    &pufferfish,
 };
 
 Monster generate_monster()
@@ -171,7 +172,7 @@ void monster_attack_player(Player * player, Monster * monster)
         monster->defense += M_DEFENSE_GAINS_ON_SUCCESS;
 
         // effets joueur
-        player->current_hp -= (player->defense > monster_attack)? MIN_VALUE_ATTACK : player->defense - monster_attack;
+        player->current_hp -= (monster_attack > player->defense) ? (monster_attack * 2 - player->defense) : MIN_VALUE_ATTACK;
     } else if (rand_value > 100-PROB_MONSTER_FAILURE-PROB_MONSTER_CRITICAL_SUCCESS-PROB_MONSTER_CRITICAL_FAILURE)
     {
         ascii_failure();
@@ -185,7 +186,7 @@ void monster_attack_player(Player * player, Monster * monster)
         sleep(WAIT_TIME);
         clear_screen();
 
-        player->current_hp -= (player->defense > monster_attack)? MIN_VALUE_ATTACK : player->defense - monster_attack;
+        player->current_hp -= (monster_attack > player->defense) ? (monster_attack - player->defense) : MIN_VALUE_ATTACK;
     } else
     {
         fprintf(stderr, "Erreur sur l'attaque du monstre.\n");
@@ -209,29 +210,29 @@ Monster jellyfish = {
     .speed = 2,
     .special_power = "Electrocution",
     .ascii =
-"   A       ;\n"
-"|   ,--,-/ \\---,-/|  ,\n"
-"_|\\,'. /|      /|   `/|-.\n"
-"\\`.'    /|      ,            `;.\n"
-",'\\   A     A         A   A _ /| `.;\n"
-",/  _              A       _  / _   /|  ;\n"
-"/\\  / \\   ,  ,           A  /    /     `/|\n"
-"/_| | _ \\         ,     ,             ,/  \\\n"
-"// | |/ `.\\  ,-      ,       ,   ,/ ,/      \\ /\n"
-"/ @| |@  / /'   \\  \\      ,              >  /|    ,--.\n"
-"|\\_/   \\_/ /      |  |           ,  ,/        \\  ./' __:..\n"
-"|  __ __  |       |  | .--.  ,         >  >   |-'   /     `\n"
-",/| /  '  \\ |       |  |     \\      ,           |    /\n"
-"/  |<--.__,->|       |  | .    `.        >  >    /   (\n"
-"/_,' \\\\  ^  /  \\     /  /   `.    >--            /^\\   |\n"
-"\\\\___/    \\   /  /      \\__'     \\   \\   \\ /   \\  |\n"
-"`.   |/          ,  ,                  /`\\    \\  )\n"
-"  \\  '  |/    ,       V    \\          /        `-\\\n"
-"`|/  '  V      V           \\    \\.'            \\_\n"
-"    '`-.       V       V        \\./'\\\n"
-"        `|/-.      \\ /   \\ /,---`\\         kat\n"
-"         /   `._____V_____V'\n"
-"                    ^     ^ \n"
+        "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣤⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠾⠏⠉⠀⠀⠀⠀⠀⠀⠈⠉⠳⢶⣄⡀⠀⠀⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠁⠀⠀⠀⠸⠷⠀⠀⠀⠀⠀⠘⠛⠃⠙⢿⣄⠀⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⢠⡿⢱⡟⠓⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⡄⢻⡆⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⢸⣧⡈⠙⠛⠁⠀⢀⣀⡀⠀⠀⠀⣀⣀⠀⠀⠁⠀⠈⣿⡀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠸⢍⣻⣦⣄⡀⠀⠹⠭⠟⠀⠀⠸⣿⣿⠇⠀⣠⠶⣦⣿⠃\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⣧⣈⣻⡷⢶⣦⣀⣀⠀⠀⠀⠀⠀⠀⠈⢛⢡⡟⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣳⠃⡹⠳⡤⡴⡏⠙⠛⣻⠶⠶⢤⡤⠤⠶⣿⠁⠀\n"
+"⠀⠀⠀⢀⣠⣤⣶⠶⠋⣵⠋⢰⠇⣼⣱⠁⢹⠗⢲⡟⠦⣤⠼⠛⠦⠞⠃⠀⠀\n"
+"⠀⢀⣴⡿⠋⠁⢠⣰⠞⠁⣰⣯⣼⠁⡏⠀⢸⠀⠸⡇⠀⢸⠀⠀⠀⠀⠀⠀⠀\n"
+"⠀⣼⠋⢀⣠⡴⣟⢁⣠⡞⢻⡿⠁⢰⡇⠀⢸⣄⠀⢷⠀⠸⣆⠀⠀⠀⠀⠀⠀\n"
+"⢸⢇⣴⡿⠋⠄⣼⡿⠁⠀⣾⠁⠀⠸⡇⠀⠀⢿⡄⠘⣆⠀⠹⣦⠀⠀⠀⠀⠀\n"
+"⢠⣾⠏⠀⠀⢠⣿⠀⠀⠀⣿⡄⠀⠀⢿⠀⠀⠈⣷⡄⠹⣧⠀⠙⢷⣄⠀⠀⠀\n"
+"⢸⡟⠀⠀⠀⢸⣿⠀⠀⠀⢹⣧⠀⠀⠸⣷⠀⠀⠸⣷⡀⠹⣦⠀⠀⠻⣧⠀⠀\n"
+"⢸⡇⠀⠀⠀⠀⣿⡆⠀⠀⠀⢻⣧⠀⠀⢻⡆⠀⠀⠹⣧⠀⠹⣇⠀⠀⢻⣧⠀\n"
+"⢸⣇⠀⠀⠀⠀⠘⣿⣄⠀⠀⠀⠹⣧⠀⠘⣿⠀⠀⠀⣿⡇⠀⢿⣄⠀⠀⣿⡇\n"
+"⢈⣿⡄⠀⠀⠀⠀⠘⣿⣄⠀⠀⠀⠈⠣⡀⢿⡆⠀⠀⣿⠃⠀⠘⣿⡀⠀⢸⡇\n"
+"⠀⠘⠃⠀⠀⠀⠀⠀⠈⢿⣧⠀⠀⠀⠀⠀⢸⣷⢀⡼⠃⠀⠀⠀⣿⡇⠀⢸⡇\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣧⡀⠀⠀⠀⢸⣿⠈⠀⠀⠀⠀⠀⣿⡇⠀⡾⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⡄⠀⠀⣸⡏⠀⠀⠀⠀⠀⣸⡟⠀⠀⠁⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀⢀⣴⠟⠀⠀⠀⠀⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠃⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀\n"
+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
 };
 
 Monster shark = {
@@ -243,5 +244,52 @@ Monster shark = {
     .max_strength = 20,
     .defense = 5,
     .speed = 5,
-    .special_power = "Morsure"
+    .special_power = "Morsure",
+    .ascii =
+"                                 ,-\n"
+"                               ,'::|\n"
+"                              /::::|\n"
+"                            ,'::::o|                                      _..\n"
+"         ____........-------,..::?88b                                  ,-' /\n"
+" _.--"""". . . .      .   .  .  .  ""`-._                           ,-' .;'\n"
+"<. - :::::o......  ...   . . .. . .  .  .""--._                  ,-'. .;'\n"
+" `-._  ` `'';';'::||||:::::::::::::::::.:. .  ""--._ ,'      ,-'.  .;'\n"
+"     '''_=--       //'doo.. ````:`:`::::::::::.:.:.:. .`-`._-'.   .;'\n"
+"         ""--.__     P(       \\               ` ``:`:``:::: .   .;'\n"
+"                ""\\''--.;-.     `.                             .:/\n"
+"                  \\. /    `-._   `.""-----.,-..::(--''.\''`.  `:\\\n"
+"                   `P         `-._ \\          `-:\\          `. `:\\\n"
+};
+
+Monster pufferfish = {
+    .id=2,
+    .name = "Poisson-globe",
+    .max_hp = 25,
+    .current_hp = 25,
+    .min_strength = 2,
+    .max_strength = 10,
+    .defense = 5,
+    .speed = 1,
+    .ascii = "|   ,--,-/ \\---,-/|  ,\n"
+    "_|\\,'. /|      /|   `/|-.\n"
+    "\\`.'    /|      ,            `;.\n"
+    ",'\\   A     A         A   A _ /| `.;\n"
+    ",/  _              A       _  / _   /|  ;\n"
+    "/\\  / \\   ,  ,           A  /    /     `/|\n"
+    "/_| | _ \\         ,     ,             ,/  \\\n"
+    "// | |/ `.\\  ,-      ,       ,   ,/ ,/      \\ /\n"
+    "/ @| |@  / /'   \\  \\      ,              >  /|    ,--.\n"
+    "|\\_/   \\_/ /      |  |           ,  ,/        \\  ./' __:..\n"
+    "|  __ __  |       |  | .--.  ,         >  >   |-'   /     `\n"
+    ",/| /  '  \\ |       |  |     \\      ,           |    /\n"
+    "/  |<--.__,->|       |  | .    `.        >  >    /   (\n"
+    "/_,' \\\\  ^  /  \\     /  /   `.    >--            /^\\   |\n"
+    "\\\\___/    \\   /  /      \\__'     \\   \\   \\ /   \\  |\n"
+    "`.   |/          ,  ,                  /`\\    \\  )\n"
+    "  \\  '  |/    ,       V    \\          /        `-\\\n"
+    "`|/  '  V      V           \\    \\.'            \\_\n"
+    "    '`-.       V       V        \\./'\\\n"
+    "        `|/-.      \\ /   \\ /,---`\\         kat\n"
+    "         /   `._____V_____V'\n"
+    "                    ^     ^ \n"
 };

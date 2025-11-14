@@ -65,7 +65,7 @@ void ascii_critical_success();
 
 void ascii_success();
 
-void ascii_monster();
+void ascii_monster(char * ascii);
 
 void ascii_title();
 
