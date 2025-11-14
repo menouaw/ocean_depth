@@ -43,6 +43,14 @@ extern const char * attack_result_frame_three;
 
 extern const char * end_boss;
 
+extern const char * tornado_room;
+
+extern const char * hurrican;
+
+void ascii_hurrican();
+
+void ascii_tornado();
+
 void ascii_end_boss();
 
 extern const char * empty;

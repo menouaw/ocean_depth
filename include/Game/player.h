@@ -4,7 +4,7 @@
 
 #define NB_STARTING_HP          100
 #define NB_STARTING_BREATHE     100
-#define NB_STARTING_STRENGTH    100
+#define NB_STARTING_STRENGTH    15
 #define NB_STARTING_DEFENSE     5
 #define NB_STARTING_SPEED       0
 

@@ -39,8 +39,8 @@ int main(int argc, char * argv[])
     printf("1. Lancer une partie.\n");
     printf("2. Quitter.\n");
 
-    // scanf("%d", &choice);
-    choice=1;
+    scanf("%d", &choice);
+    // choice=1;
 
     switch (choice)
     {

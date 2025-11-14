@@ -92,7 +92,13 @@ int consume_room(Player * player)
         clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'E')
     {
-        tornado(player);
+        ascii_tornado();
+        sleep(WAIT_TIME);
+        clear_screen();
+        tornado_event(player);
+        ascii_hurrican();
+        sleep(WAIT_TIME);
+        clear_screen();
     } else if (player->map.map[player->position.level][player->position.room] == 'V')
     {
         // salle vide: rien à faire

@@ -8,6 +8,6 @@
 #ifndef CODE_EVENTS_H
 #define CODE_EVENTS_H
 
-void tornado(Player * player);
+void tornado_event(Player * player);
 
 #endif //CODE_EVENTS_H

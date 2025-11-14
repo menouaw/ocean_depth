@@ -9,7 +9,7 @@
 #include "../../include/Game/player.h"
 #include "../../include/Game/actions.h"
 
-void tornado(Player* player)
+void tornado_event(Player* player)
 {
     move_to_room(player, rand() % (NB_LEVEL-1), rand() % (NB_ROOM_BY_LEVEL));
 
